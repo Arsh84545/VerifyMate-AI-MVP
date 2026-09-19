@@ -34,7 +34,7 @@ if uploads:
             st.error("Add GEMINI_API_KEY to your .env file.")
         else:
             with st.status("Running VerifyMate agents...", expanded=True) as status:
-                sources = [f.getvalue().decode("utf-8") for f in uploads]
+                sources = [{"name": f.name, "text": f.getvalue().decode("utf-8")} for f in uploads]
                 result = run_pipeline(sources)
                 status.update(label="Verification complete", state="complete")
             st.session_state["result"] = result
