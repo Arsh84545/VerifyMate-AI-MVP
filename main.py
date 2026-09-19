@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from typing import List
 from pipeline import run_pipeline
 
 app = FastAPI(title="VerifyMate AI API")
@@ -9,7 +10,7 @@ class SourceItem(BaseModel):
     text: str
 
 class VerificationRequest(BaseModel):
-    sources: list[SourceItem]
+    sources: List[SourceItem]
 
 @app.get("/")
 def home():
