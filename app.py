@@ -1,7 +1,7 @@
 import os, json, streamlit as st
 from dotenv import load_dotenv
 from pipeline import run_pipeline
-from utils.documents import read_uploaded_file
+# from utils.documents import read_uploaded_file
 
 load_dotenv()
 st.set_page_config(page_title="VerifyMate AI", page_icon="🔎", layout="wide")
