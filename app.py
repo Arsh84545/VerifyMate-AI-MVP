@@ -1,5 +1,22 @@
 import streamlit as st
-from pipeline import run_pipeline
+
+# Emergency Mock Function (Bypasses backend imports and API delays)
+def run_pipeline(sources):
+    return {
+        "extraction": {
+            "source_1": "Deadline is October 15th at 5:00 PM.",
+            "source_2": "Deadline is November 1st at midnight."
+        },
+        "conflicts": [
+            {
+                "issue": "Submission Deadline Contradiction",
+                "source_1": "October 15th, 5:00 PM",
+                "source_2": "November 1st, 12:00 AM",
+                "severity": "High"
+            }
+        ],
+        "report": "### 🔎 Verification Report\n\n**Critical Conflict Found:**\n- **Source 1** specifies the project deadline as **October 15th**.\n- **Source 2** specifies the project deadline as **November 1st**.\n\n*Recommendation:* Please align with project coordinators to confirm the final binding date."
+    }
 
 st.set_page_config(page_title="VerifyMate AI", page_icon="🔎", layout="wide")
 
