@@ -1,6 +1,8 @@
 import json
 # Pehle ye tha: from .llm import ask_json
-from llm import ask_json
+from agents.llm import ask_json
+# YA
+from .llm import ask_json
 
 def source_text(sources):
     return "\n\n".join(
