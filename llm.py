@@ -4,15 +4,20 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai.errors import ServerError, ClientError, APIError
 
-# .env load karein
+# Load .env file for local development
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+def get_client():
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY environment variable is missing.")
+    return genai.Client(api_key=api_key)
 
 def ask_json(prompt: str, retries: int = 5, delay: int = 10):
-    model_name = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    client = get_client()
     
-    # Free tier rate limit (RPM) bypass karne ke liye lag
+    # Pause to help avoid free tier rate limits
     time.sleep(2)
     
     for attempt in range(retries):
@@ -24,7 +29,6 @@ def ask_json(prompt: str, retries: int = 5, delay: int = 10):
             )
             return response.text
         except (ServerError, ClientError, APIError) as e:
-            # Agar 429 Rate Limit error aaye to wait kar ke retry karega
             if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
                 wait_time = delay * (attempt + 1)
                 print(f"[Rate Limit] Limit reached. Waiting {wait_time}s before retrying... (Attempt {attempt + 1}/{retries})")
