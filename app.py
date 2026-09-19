@@ -1,6 +1,6 @@
 import os, json, streamlit as st
 from dotenv import load_dotenv
-from agents.pipeline import run_pipeline
+from pipeline import run_pipeline
 from utils.documents import read_uploaded_file
 
 load_dotenv()
